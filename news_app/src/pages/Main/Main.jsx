@@ -4,16 +4,20 @@ import styles from "./styles.module.css";
 import { getNews } from "../../api/apiNews";
 import NewsList from "../../components/NewsList/NewsList";
 import Skeleton from "../../components/Skeleton/Skeleton";
+import Pagination from "../../components/Pagination/Pagination";
 
 export default function Main() {
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPage = 10;
+  const pageSize = 10;
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const fetchNews = async (currentPage) => {
       try {
         setIsLoading(true);
-        const { news } = await getNews();
+        const { news } = await getNews(currentPage, pageSize);
         setNews(news);
       } catch (err) {
         console.log(err);
@@ -21,8 +25,24 @@ export default function Main() {
         setIsLoading(false);
       }
     };
-    fetchNews();
-  }, []);
+    fetchNews(currentPage);
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevioustPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <main className={styles.main}>
@@ -32,6 +52,13 @@ export default function Main() {
         <Skeleton count={1} type={"banner"} />
       )}
 
+      <Pagination
+        handleNextPage={handleNextPage}
+        handlePageClick={handlePageClick}
+        handlePrevioustPage={handlePrevioustPage}
+        totalPages={totalPage}
+        currentPage={currentPage}
+      />
       {!isLoading ? (
         <NewsList news={news} />
       ) : (
