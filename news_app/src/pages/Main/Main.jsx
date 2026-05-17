@@ -1,15 +1,19 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import NewsBanner from "../../components/NewsBanner/NewsBanner";
 import styles from "./styles.module.css";
-import { getNews } from "../../api/apiNews";
+import { getCategories, getNews } from "../../api/apiNews";
 import NewsList from "../../components/NewsList/NewsList";
 import Skeleton from "../../components/Skeleton/Skeleton";
 import Pagination from "../../components/Pagination/Pagination";
+import Categories from "../../components/Categories/Categories";
 
 export default function Main() {
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   const totalPage = 10;
   const pageSize = 10;
 
@@ -17,7 +21,11 @@ export default function Main() {
     const fetchNews = async (currentPage) => {
       try {
         setIsLoading(true);
-        const { news } = await getNews(currentPage, pageSize);
+        const { news } = await getNews({
+          page_number: currentPage,
+          page_size: pageSize,
+          category: selectedCategory === "All" ? null : selectedCategory,
+        });
         setNews(news);
       } catch (err) {
         console.log(err);
@@ -25,8 +33,22 @@ export default function Main() {
         setIsLoading(false);
       }
     };
+
     fetchNews(currentPage);
-  }, [currentPage]);
+  }, [currentPage, selectedCategory]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { categories } = await getCategories();
+        setCategories(["All", ...categories]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleNextPage = () => {
     if (currentPage < totalPage) {
@@ -46,6 +68,12 @@ export default function Main() {
 
   return (
     <main className={styles.main}>
+      <Categories
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        categories={categories}
+      />
+
       {news.length > 0 && !isLoading ? (
         <NewsBanner item={news[0]} />
       ) : (
