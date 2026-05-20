@@ -7,6 +7,13 @@ export default function Categories({
 }) {
   return (
     <div className={styles.categories}>
+      <button
+        onClick={() => setSelectedCategory(null)}
+        className={!selectedCategory ? styles.active : styles.item}
+        disabled={selectedCategory === null}
+      >
+        All
+      </button>
       {categories.map((category) => (
         <button
           onClick={() => setSelectedCategory(category)}
