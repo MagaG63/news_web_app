@@ -16,7 +16,21 @@ export const getNews = async ({
         page_number,
         page_size,
         category,
-        keywords
+        keywords,
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getLatestNews = async () => {
+  try {
+    const res = await axios.get(`${BASE_URL}latest-news`, {
+      params: {
+        apiKey: API_KEY,
       },
     });
 

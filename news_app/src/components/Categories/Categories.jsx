@@ -5,6 +5,7 @@ export default function Categories({
   setSelectedCategory,
   selectedCategory,
 }) {
+
   return (
     <div className={styles.categories}>
       <button
