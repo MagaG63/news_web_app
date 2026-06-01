@@ -1,5 +1,5 @@
-import { formatTimeAgo } from "../../helpers/formatTimeAgo.js";
-import Image from "../Image/Image.jsx";
+import { formatTimeAgo } from "../../helpers/formatTimeAgo.ts";
+import Image from "../Image/Image.tsx";
 import styles from "./styles.module.css";
 
 function NewsBanner({ item }) {

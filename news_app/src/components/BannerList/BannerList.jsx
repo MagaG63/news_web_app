@@ -1,5 +1,5 @@
-import withSkeleton from "../../helpers/hocs/withSkeleton.jsx";
-import NewsBanner from "../NewsBanner/NewsBanner.jsx";
+import withSkeleton from "../../helpers/hocs/withSkeleton.tsx";
+import NewsBanner from "../NewsBanner/NewsBanner.tsx";
 
 import styles from "./styles.module.css";
 

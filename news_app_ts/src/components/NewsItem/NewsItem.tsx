@@ -1,4 +1,4 @@
-import { formatTimeAgo } from "../../helpers/formatTimeAgo.js";
+import { formatTimeAgo } from "../../helpers/formatTimeAgo.ts";
 import styles from "./styles.module.css";
 
 export default function NewsItem({ item }) {
