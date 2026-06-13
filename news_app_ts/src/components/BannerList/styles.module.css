@@ -9,8 +9,8 @@
 }
 
 @media (min-width: 768px) {
-  .banners{
+  .banners {
     max-width: 1200px;
     overflow-y: auto;
   }
-};
+}

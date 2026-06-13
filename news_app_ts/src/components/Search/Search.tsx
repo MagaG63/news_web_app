@@ -1,7 +1,13 @@
 
 import styles from "./styles.module.css";
 
-export default function Search({ keywords, setKeywords }) {
+
+interface Props {
+  keywords: string;
+  setKeywords: (value: string) => void;
+}
+
+export default function Search({ keywords, setKeywords }: Props) {
   return (
     <div className={styles.search}>
       <input

@@ -1,8 +1,13 @@
 import { formatTimeAgo } from "../../helpers/formatTimeAgo.ts";
+import type { INews } from "../../interfaces/index.ts";
 import Image from "../Image/Image.tsx";
 import styles from "./styles.module.css";
 
-function NewsBanner({ item }) {
+interface Props {
+  item: INews;
+}
+
+function NewsBanner({ item }: Props) {
   return (
     <div className={styles.display}>
       <Image image={item?.image} />
