@@ -39,6 +39,7 @@ export interface IPaginationProps {
   handleNextPage: () => void;
   handlePageClick: (page: number) => void;
   handlePrevioustPage: () => void;
+
 }
 
 export type ParamsType = Partial<IFilters>;
