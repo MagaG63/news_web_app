@@ -1,4 +1,5 @@
 import { getCategories } from "../../api/apiNews";
+import { useTheme } from "../../context/ThemeContext";
 import { useFetch } from "../../helpers/hooks/useFetch";
 import type { CategoriesApiResponse, IFilters } from "../../interfaces";
 import Categories from "../Categories/Categories";
@@ -9,6 +10,7 @@ import styles from "./styles.module.css";
 interface Props {
   filters: IFilters;
   changeFilter: (key: string, value: string | number | null) => void;
+
 }
 
 export default function NewsFilters({ filters, changeFilter }: Props) {
@@ -16,10 +18,11 @@ export default function NewsFilters({ filters, changeFilter }: Props) {
     getCategories,
   );
 
+
   return (
     <div className={styles.filters}>
       {dataCategories ? (
-        <Slider>
+        <Slider >
           <Categories
             selectedCategory={filters.category}
             setSelectedCategory={(category) =>
@@ -31,6 +34,7 @@ export default function NewsFilters({ filters, changeFilter }: Props) {
       ) : null}
 
       <Search
+    
         keywords={filters.keywords}
         setKeywords={(keywords) => changeFilter("keywords", keywords)}
       />
