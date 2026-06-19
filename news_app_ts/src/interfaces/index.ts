@@ -28,7 +28,7 @@ export type DirectionType = 'row' | 'column'
 
 export interface IFilters {
   page_number: number;
-  category: string | null;
+  category: string | undefined;
   page_size: number;
   keywords: string;
 }
