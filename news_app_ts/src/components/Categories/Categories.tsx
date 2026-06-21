@@ -3,8 +3,8 @@ import styles from "./styles.module.css";
 
 interface Props {
   categories: string[];
-  setSelectedCategory: (category: string | null) => void;
-  selectedCategory: string | null;
+  setSelectedCategory: (category: string | undefined) => void;
+  selectedCategory: string | undefined;
 }
 
 const Categories = forwardRef(
@@ -15,9 +15,9 @@ const Categories = forwardRef(
     return (
       <div className={styles.categories} ref={ref}>
         <button
-          onClick={() => setSelectedCategory(null)}
+          onClick={() => setSelectedCategory(undefined)}
           className={!selectedCategory ? styles.active : styles.item}
-          disabled={selectedCategory === null}
+          disabled={selectedCategory === undefined}
         >
           All
         </button>
