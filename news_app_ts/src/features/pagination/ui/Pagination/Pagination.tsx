@@ -1,0 +1,48 @@
+
+import { useTheme } from "../../../../app/providers/ThemeProvider";
+import type { IPaginationProps } from "../../model/paginationTypes";
+import styles from "./styles.module.css";
+
+export default function Pagination({
+  totalPages,
+  currentPage,
+  handleNextPage,
+  handlePageClick,
+  handlePrevioustPage,
+}: IPaginationProps) {
+  const { isDark } = useTheme();
+  return (
+    <div
+      className={`${styles.pagination} ${isDark ? styles.dark : styles.light}`}
+    >
+      <button
+        disabled={currentPage <= 1}
+        onClick={handlePrevioustPage}
+        className={styles.arrow}
+      >
+        {"<"}
+      </button>
+      <div className={styles.list}>
+        {[...Array(totalPages)].map((_, index) => {
+          return (
+            <button
+              onClick={() => handlePageClick(index + 1)}
+              className={styles.pageNumber}
+              disabled={currentPage === index + 1}
+              key={index}
+            >
+              {index + 1}
+            </button>
+          );
+        })}
+      </div>
+      <button
+        disabled={currentPage >= totalPages}
+        onClick={handleNextPage}
+        className={styles.arrow}
+      >
+        {">"}
+      </button>
+    </div>
+  );
+}
